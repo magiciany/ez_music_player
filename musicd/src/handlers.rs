@@ -1,4 +1,4 @@
-use music_common::{Command, Response, Queue};
+use music_common::{Command, Response};
 use crate::audio::AudioEngine;
 use crate::state::PlayerState;
 use std::sync::Arc;

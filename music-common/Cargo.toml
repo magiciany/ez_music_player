@@ -4,6 +4,8 @@ version.workspace = true
 edition.workspace = true
 
 [dependencies]
+dirs = "5"
+rand = "0.8"
 serde = { workspace = true }
 serde_json = { workspace = true }
 tokio = { workspace = true }

@@ -1,6 +1,5 @@
 mod audio;
 mod handlers;
-mod queue;
 mod state;
 
 use std::path::PathBuf;

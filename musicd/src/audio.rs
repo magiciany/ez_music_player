@@ -22,7 +22,7 @@ fn is_dsd(path: &Path) -> bool {
 
 impl AudioEngine {
     pub fn new() -> Self {
-        let (stream, stream_handle) = OutputStream::try_obtain_default().unwrap();
+        let (stream, stream_handle) = OutputStream::try_default().unwrap();
         let sink = Sink::try_new(&stream_handle).unwrap();
         Self {
             _stream: stream,
