@@ -53,15 +53,20 @@ impl Queue {
             let item = self.items.remove(from);
             self.items.insert(to, item);
             // Update current index
-            if let Some(cur) = self.current {
-                if cur == from {
-                    self.current = Some(to);
-                } else if from < cur && to >= cur {
-                    self.current = Some(cur - 1);
-                } else if from > cur && to <= cur {
-                    self.current = Some(cur + 1);
+            self.current = match self.current {
+                None => None,
+                Some(cur) => {
+                    if cur == from {
+                        Some(to)
+                    } else if from < cur && to >= cur {
+                        Some(cur - 1)
+                    } else if from > cur && to <= cur {
+                        Some(cur + 1)
+                    } else {
+                        Some(cur)
+                    }
                 }
-            }
+            };
             self.save();
             true
         } else {
