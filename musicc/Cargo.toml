@@ -1,0 +1,11 @@
+[package]
+name = "musicc"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+music-common = { path = "../music-common" }
+tokio = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+clap = { version = "4.5", features = ["derive"] }

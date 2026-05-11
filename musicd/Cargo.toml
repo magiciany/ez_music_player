@@ -1,0 +1,12 @@
+[package]
+name = "musicd"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+music-common = { path = "../music-common" }
+tokio = { workspace = true }
+rodio = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+dirs = "5.0"
