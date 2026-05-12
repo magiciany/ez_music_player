@@ -1,10 +1,10 @@
-use clap::{Parser, Subcommand};
+use clap::{Parser, Subcommand, CommandFactory};
 use music_common::{Command, RepeatMode};
 use music_common::socket::SocketClient;
 use std::path::PathBuf;
 
 fn socket_path() -> PathBuf {
-    dirs::config_dir().unwrap().join("music/socket")
+    dirs::config_dir().unwrap().join("music/musicd.sock")
 }
 
 #[derive(Parser)]
@@ -58,7 +58,12 @@ fn to_command(cmd: Commands) -> Command {
         Commands::Stop => Command::Stop,
         Commands::Next => Command::Next,
         Commands::Prev => Command::Prev,
-        Commands::Add { path } => Command::Add { path },
+        Commands::Add { path } => {
+            let absolute = std::fs::canonicalize(&path)
+                .map(|p| p.to_string_lossy().to_string())
+                .unwrap_or(path);
+            Command::Add { path: absolute }
+        }
         Commands::Remove { index } => Command::Remove { index },
         Commands::Move { from, to } => Command::Move { from, to },
         Commands::Clear => Command::Clear,
@@ -76,8 +81,8 @@ async fn main() {
     let cmd = match cli.cmd {
         Some(c) => to_command(c),
         None => {
-            eprintln!("Usage: musicc <command> [args]");
-            std::process::exit(1);
+            print!("{}", Cli::command().render_help());
+            std::process::exit(0);
         }
     };
     let client = SocketClient::new(socket_path());
