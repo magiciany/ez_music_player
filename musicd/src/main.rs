@@ -16,7 +16,7 @@ use state::PlayerState;
 use audio::AudioEngine;
 
 fn config_dir() -> PathBuf {
-    dirs::config_dir().unwrap().join("music")
+    dirs::config_dir().unwrap().join("ez_music_player")
 }
 
 fn socket_path() -> PathBuf {

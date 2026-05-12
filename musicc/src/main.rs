@@ -4,7 +4,7 @@ use music_common::socket::SocketClient;
 use std::path::PathBuf;
 
 fn socket_path() -> PathBuf {
-    dirs::config_dir().unwrap().join("music/musicd.sock")
+    dirs::config_dir().unwrap().join("ez_music_player/musicd.sock")
 }
 
 #[derive(Parser)]
@@ -89,7 +89,24 @@ async fn main() {
     let resp = client.connect(&cmd).await;
     if resp.ok {
         if let Some(body) = resp.body {
-            println!("{}", serde_json::to_string_pretty(&body).unwrap());
+            if body.get("items").is_some() {
+                let items = body.get("items").and_then(|v| v.as_array()).cloned().unwrap_or_default();
+                let current = body.get("current").and_then(|v| v.as_u64()).map(|v| v as usize);
+                let repeat = body.get("repeat").and_then(|v| v.as_str()).unwrap_or("off");
+                let shuffle = body.get("shuffle").and_then(|v| v.as_bool()).unwrap_or(false);
+
+                for (i, item) in items.iter().enumerate() {
+                    let path = item.get("path").and_then(|v| v.as_str()).unwrap_or("");
+                    let marker = if Some(i) == current { " [playing]" } else { "" };
+                    println!("{}: {}{}", i, path, marker);
+                }
+                if !items.is_empty() {
+                    println!();
+                }
+                println!("Repeat: {}  |  Shuffle: {}", repeat, shuffle);
+            } else {
+                println!("{}", serde_json::to_string_pretty(&body).unwrap());
+            }
         }
     } else {
         eprintln!("Error: {}", resp.error.unwrap_or_default());

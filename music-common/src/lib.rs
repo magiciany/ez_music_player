@@ -68,7 +68,7 @@ pub struct Queue {
 }
 
 fn queue_path() -> PathBuf {
-    dirs::config_dir().unwrap().join("music/queue.json")
+    dirs::config_dir().unwrap().join("ez_music_player/queue.json")
 }
 
 impl Queue {
