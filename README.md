@@ -33,30 +33,30 @@ cargo build
 
 ```bash
 # 在一个终端启动后台服务
-cargo run --package musicd
+musicd
 ```
 
 ### 使用 CLI
 
 ```bash
 # 添加音乐文件
-cargo run --package musicc -- add /path/to/your/music.mp3
+musicc add /path/to/your/music.mp3
 
 # 查看队列
-cargo run --package musicc -- list
+musicc list
 
 # 播放
-cargo run --package musicc -- play
+musicc play
 
 # 其他命令
-cargo run --package musicc -- pause      # 暂停
-cargo run --package musicc -- stop      # 停止
-cargo run --package musicc -- next      # 下一首
-cargo run --package musicc -- prev      # 上一首
-cargo run --package musicc -- shuffle   # 随机打乱
-cargo run --package musicc -- repeat off # 设置循环模式
-cargo run --package musicc -- status    # 查看状态
-cargo run --package musicc -- quit      # 关闭服务
+musicc pause      # 暂停
+musicc stop      # 停止
+musicc next      # 下一首
+musicc prev      # 上一首
+musicc shuffle   # 随机打乱
+musicc repeat off # 设置循环模式
+musicc status    # 查看状态
+musicc quit      # 关闭服务
 ```
 
 ## 配置目录
