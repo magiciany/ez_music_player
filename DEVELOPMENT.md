@@ -69,7 +69,7 @@ musicc/src/
 ## 3. 通信协议
 
 ### 3.1 Socket 路径
-- **路径**: `~/Library/Application Support/music/musicd.sock`
+- **路径**: `~/Library/Application Support/ez_music_player/musicd.sock`
 - **类型**: Unix Domain Socket（文件式，非 TCP）
 
 ### 3.2 协议格式
@@ -146,7 +146,7 @@ pub enum PlaybackState {
 ## 5. 持久化
 
 ### 5.1 配置文件目录
-- **路径**: `~/Library/Application Support/music/`
+- **路径**: `~/Library/Application Support/ez_music_player/`
 - **来源**: `dirs::config_dir()` 返回（macOS 不同于此前的 `~/.config/music`）
 
 ### 5.2 持久化文件
@@ -269,4 +269,4 @@ cargo run --package musicc status
 ### 9.3 注意事项
 - musicd 需先启动，musicc 才能连接
 - 使用绝对路径添加文件可避免工作目录问题
-- macOS 配置目录为 `~/Library/Application Support/music`
+- macOS 配置目录为 `~/Library/Application Support/ez_music_player`
